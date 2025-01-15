@@ -39,3 +39,33 @@ The library has almost every important configuration needed for the MCU developm
 - ntc.h and ntc.c: Converts NTC sensor readings
 - rtc.h and rtc.c: Controls a DS3231 RTC using TWI
 - servo.h and servo.c: Controls a Servo using Timer 1
+
+## How to
+
+Firstly make sure you have the ```bsp``` folder in your project, which contains the avrbsp library. Then, include the main header in your code:
+
+```
+#include "bsp.h
+```
+
+If you want another component that isn't native to the AVR (e.g. servo) you have to include it as well:
+
+```
+#include "servo.h
+```
+
+Then, call the Makefile of the ```bsp``` folder inside the main Makefile to generate the static library (you can build and link manually if you want):
+
+```
+$make -C bsp
+```
+
+And link it to your project, placing the following at the end of the linker command:
+
+```
+ -Lbsp/lib -lavrbsp -L$(LIB_GCC_PATH) -lgcc -lc -lm
+```
+
+Or you can just use the template of this repository if you want. Simply put your code and add your files to the Makefile, and hit ```make```.
+
+Have fun!
